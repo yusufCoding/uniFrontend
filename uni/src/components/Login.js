@@ -15,6 +15,7 @@ const Login = () => {
     e.preventDefault();
     Service.login(user).then((response) => {
       console.log(response.data);
+      navigate("/next4");
     }).catch((error) => {
       console.log(error);
     })

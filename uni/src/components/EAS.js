@@ -1,30 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import loginImg from "../assets/universitaet.jpg";
 import { FormSelect, FormLabel } from "react-bootstrap";
 import Service from "../services/Service";
+import { useNavigate } from "react-router-dom";
+import Einführung from "./Einführung";
 
-const EAS = () => {
-   const [data, setData] = useState();
+const EAS = ({setData}) => {
   const [eas, setEas] = useState({
     erw: "",
     anzsem: "",
     starts: "",
   });
+  const navigate = useNavigate();
 
   const sendEAS = (e) => {
     e.preventDefault();
     Service.sendEAS(eas)
       .then((response) => {
         console.log(response.data);
-        setData(response.data)
-        console.log(data);
-        console.log(setData);
-        console.log(e)
+        setData(response);
+        navigate("/next");
       })
       .catch((error) => {
         console.log(error);
       });
+      console.log("I am here")
   };
+
+  
 
   const handleChange = (e) => {
     const value = e.target.value;
